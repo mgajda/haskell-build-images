@@ -1,6 +1,7 @@
 FROM    ubuntu:bionic AS haskell-prep
 RUN     apt-get update
-RUN     apt-get install    -y software-properties-common ruby ruby-bundler
+RUN     apt-get upgrade    -y
+RUN     apt-get install    -y software-properties-common ruby ruby-bundler curl wget
 RUN     add-apt-repository -y ppa:hvr/ghc
 RUN     apt-get install    -y happy alex cabal-install
 RUN     mkdir -p $HOME/.local/bin
@@ -16,6 +17,8 @@ WORKDIR                /build
 RUN     cabal update
 RUN     cabal install hlint
 RUN     bundle install --deployment
+COPY    pier           /usr/local/bin/pier
+RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v1.7.1/stack-1.7.1-linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.2
