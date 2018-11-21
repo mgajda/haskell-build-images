@@ -1,7 +1,10 @@
 FROM    ubuntu:bionic AS haskell-prep
 RUN     apt-get update \
      && apt-get upgrade    -y \
-     && apt-get install -y software-properties-common ruby ruby-bundler curl wget alex happy jq \
+     && apt-get install -y software-properties-common \
+                           ruby ruby-bundler \
+                           curl wget alex happy jq \
+                           pkg-config \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
