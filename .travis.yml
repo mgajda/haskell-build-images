@@ -4,12 +4,16 @@ services:
   - docker
 
 env:
-  - GHC_VER: 7.8.4
+  - GHC_VER: head
+  - GHC_VER: 8.6.2
   - GHC_VER: 8.4.4
   - GHC_VER: 8.2.2
   - GHC_VER: 8.0.2
   - GHC_VER: 7.10.3
-  - GHC_VER: 8.6.2
+  - GHC_VER: 7.8.4
+
+matrix:
+  allow_failure: head
 
 install:
   - docker --version
