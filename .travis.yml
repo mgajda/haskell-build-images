@@ -1,4 +1,4 @@
-language: generic
+language: haskell
 sudo: required
 services:
   - docker
@@ -12,6 +12,11 @@ env:
   - GHC_VER: 8.6.2
 
 install:
+  - docker --version
+
+script:
   - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
+
+deploy:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push migamake/haskell-build:${GHC_VER};
