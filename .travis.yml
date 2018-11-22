@@ -3,6 +3,9 @@ sudo: required
 services:
   - docker
 
+git:
+  depth: 2
+
 env:
   - GHC_VER: head
   - GHC_VER: 8.6.2
