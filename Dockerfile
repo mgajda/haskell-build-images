@@ -4,7 +4,7 @@ RUN     apt-get update \
      && apt-get install -y software-properties-common \
                            ruby ruby-bundler \
                            curl wget alex happy jq \
-                           pkg-config \
+                           pkg-config netbase \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
