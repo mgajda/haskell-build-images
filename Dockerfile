@@ -5,6 +5,7 @@ RUN     apt-get update \
                            ruby ruby-bundler \
                            curl wget alex happy jq \
                            pkg-config netbase git \
+                           zlib1g-dev \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
