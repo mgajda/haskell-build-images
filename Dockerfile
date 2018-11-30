@@ -37,6 +37,7 @@ RUN     apt-get update \
 RUN     cabal update \
      && cabal install hlint homplexity \
      && rm -rf /root/.cabal/packages
+RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
 RUN     ruby           --version
