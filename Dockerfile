@@ -31,7 +31,7 @@ RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v1.
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.2
 RUN     apt-get update \
-     && apt-get install -y ghc-$GHC_VER --no-install-recommends \
+     && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
 RUN     cabal update \
