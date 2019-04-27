@@ -9,3 +9,4 @@ It contains basic tools:
   - homplexity
 * cabal 1.24, since cabal>=2.0 seems to buggy now
 * other build tools like stack or pier.
+
