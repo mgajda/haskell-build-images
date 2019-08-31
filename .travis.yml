@@ -6,15 +6,19 @@ services:
 git:
   depth: 2
 
-env:
-  - GHC_VER: 8.8.1
-  - GHC_VER: 8.6.2
-  - GHC_VER: 8.4.4
-  - GHC_VER: 8.2.2
-  - GHC_VER: 8.0.2
-  - GHC_VER: 7.10.3
-  - GHC_VER: 7.8.4
-# NOTE: For GHC head, one needs to build hlint, pier with another compiler version.
+matrix:
+  include:
+  - env: GHC_VER=8.8.1
+  - env: GHC_VER=8.6.2
+  - env: GHC_VER=8.4.4
+  - env: GHC_VER=8.2.2
+  - env: GHC_VER=8.0.2
+  - env: GHC_VER=7.10.3
+  - env: GHC_VER=7.8.4
+  # NOTE: For GHC head, one needs to build hlint, pier with another compiler version.
+  allow_failures:
+    - env: GHC_VER=8.8.1
+
 
 install:
   - docker --version
