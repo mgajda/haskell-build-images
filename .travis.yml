@@ -7,6 +7,7 @@ git:
   depth: 2
 
 env:
+  - GHC_VER: 8.8.1
   - GHC_VER: 8.6.2
   - GHC_VER: 8.4.4
   - GHC_VER: 8.2.2
@@ -20,5 +21,7 @@ install:
 
 script:
   - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push migamake/haskell-build:${GHC_VER};
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      docker push migamake/haskell-build:${GHC_VER};
+    fi;
