@@ -22,6 +22,6 @@ install:
 script:
   - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
       docker push migamake/haskell-build:${GHC_VER};
     fi;
