@@ -27,10 +27,10 @@ WORKDIR                /build
 COPY    pier           /usr/local/bin/pier
 COPY    cabal          /usr/local/bin/cabal
 RUN     bundle install --deployment
-RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v1.7.1/stack-1.7.1-linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
+RUN     curl -sSL https://get.haskellstack.org/ | sh
 
 FROM haskell-prep AS haskell-build
-ARG     GHC_VER=8.6.2
+ARG     GHC_VER=8.6.5
 RUN     apt-get update \
      && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof --no-install-recommends \
      && apt-get clean \
