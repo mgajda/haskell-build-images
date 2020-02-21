@@ -49,9 +49,9 @@ RUN     cabal update \
 RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
-RUN     ruby           --version
-RUN     hlint          --version
-RUN     homplexity-cli --version || exit 0
+RUN     ruby           --version || true
+RUN     hlint          --version || true
+RUN     homplexity-cli --version || true
 ENV     HC=ghc-${GHC_VER}
 ENV     HCPKG=ghc-pkg-${GHC_VER}
 
