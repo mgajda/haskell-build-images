@@ -43,6 +43,7 @@ RUN     cabal update \
      && cd homplexity-* \
      && sed --in-place 's/ld-options: -static//' *.cabal \
      && cabal install \
+     && cabal install hspec-discover alex happy \
      && cabal install hlint \
      && rm -rf /root/.cabal/packages \
      || echo "Ignore missing deps for now."
