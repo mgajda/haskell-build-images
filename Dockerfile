@@ -16,9 +16,6 @@ RUN     add-apt-repository -y ppa:hvr/ghc \
      && rm -rf /var/lib/apt/lists
 RUN     mkdir -p $HOME/.local/bin
 ENV     SILENCE_ROOT_WARNING=1
-# In case you wondered:
-ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/usr/share/rvm/bin:$PATH
-ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:$PATH
 #RUN     mkdir -p       /build/.bundle
 #COPY    Dangerfile     /build/Dangerfile
 #COPY    .bundle/config /build/.bundle/config
@@ -34,6 +31,10 @@ RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.
 
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
+ARG     CABAL_VER=2.4
+# In case you wondered:
+ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/opt/cabal/$CABAL_VER/bin:$PATH
+#ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:$PATH
 RUN     apt-get update \
      && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof cabal-install-$CABAL_VER --no-install-recommends \
      && apt-get clean \
