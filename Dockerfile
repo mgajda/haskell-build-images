@@ -44,7 +44,7 @@ RUN     cabal update \
      && sed --in-place 's/ld-options: -static//' *.cabal \
      && cabal install \
      && cabal install hlint \
-     && rm -rf /root/.cabal/packages
+     && rm -rf /root/.cabal/packages \
      || echo "Ignore missing deps for now."
 RUN     stack          --version
 RUN     ghc            --version
