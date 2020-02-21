@@ -19,8 +19,7 @@ matrix:
   # NOTE: For GHC head, one needs to build hlint, pier with another compiler version.
   allow_failures:
     - env: GHC_VER=8.10.1
-    - env: GHC_VER=8.8.1
-    - env: GHC_VER=8.6.5
+    - env: GHC_VER=8.8.2
     - env: GHC_VER=7.8.4
 
 install:
