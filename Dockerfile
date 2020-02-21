@@ -29,6 +29,7 @@ WORKDIR                /build
 #COPY    pier           /usr/local/bin/pier
 COPY    cabal          /usr/local/bin/cabal
 #RUN     bundle install --deployment
+#RUN     curl -sSL https://get.haskellstack.org/ | sh
 RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64-static.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 FROM haskell-prep AS haskell-build
