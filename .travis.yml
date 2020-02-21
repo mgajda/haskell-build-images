@@ -8,25 +8,47 @@ git:
 
 matrix:
   include:
-  - env: GHC_VER=8.10.1
-  - env: GHC_VER=8.8.2
-  - env: GHC_VER=8.6.5
-  - env: GHC_VER=8.4.4
-  - env: GHC_VER=8.2.2
-  - env: GHC_VER=8.0.2
-  - env: GHC_VER=7.10.3
-  - env: GHC_VER=7.8.4
+  - env:
+     - GHC_VER=8.10.1
+     - CABAL_VER=3.2
+  - env:
+     - GHC_VER=8.8.2
+     - CABAL_VER=3.0
+  - env:
+     - GHC_VER=8.6.5
+     - CABAL_VER=2.4
+  - env:
+     - GHC_VER=8.4.4
+     - CABAL_VER=2.4
+  - env:
+     - GHC_VER=8.2.2
+     - CABAL_VER=2.4
+  - env:
+     - GHC_VER=8.0.2
+     - CABAL_VER=2.4
+  - env:
+     - GHC_VER=7.10.3
+     - CABAL_VER=1.21
+  - env:
+     - GHC_VER=7.8.4
+     - CABAL_VER=2.4
   # NOTE: For GHC head, one needs to build hlint, pier with another compiler version.
   allow_failures:
-    - env: GHC_VER=8.10.1
-    - env: GHC_VER=8.8.2
-    - env: GHC_VER=7.8.4
+    - env:
+      - GHC_VER=8.10.1
+      - CABAL_VER=3.2
+    - env:
+      - GHC_VER=8.8.2
+      - CABAL_VER=3.0
+    - env:
+      - GHC_VER=7.8.4
+      - CABAL_VER=1.21
 
 install:
   - docker --version
 
 script:
-  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
+  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --build-arg CABAL_VER=${CABAL_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
       docker push migamake/haskell-build:${GHC_VER};
