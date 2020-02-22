@@ -46,8 +46,8 @@ RUN     cabal update \
      && cabal install \
      && cabal install hspec-discover alex happy \
      && cabal install hlint \
-     && rm -rf /root/.cabal/packages \
      || echo "Ignore missing deps for now."
+     #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
