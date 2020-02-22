@@ -40,13 +40,8 @@ RUN     apt-get update \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
 RUN     cabal update \
-     && cabal unpack homplexity \
-     && cd homplexity-* \
-     && sed --in-place 's/ld-options: -static//' *.cabal \
      && cabal install \
-     && cabal install hspec-discover alex happy \
-     && cabal install hlint \
-     || echo "Ignore missing deps for now."
+     && cabal install hspec-discover alex happy hlint
      #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
 RUN     ghc            --version
