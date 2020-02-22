@@ -39,9 +39,8 @@ RUN     apt-get update \
      && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof cabal-install-$CABAL_VER --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
-RUN     cabal update \
-     && cabal install \
-     && cabal install hspec-discover alex happy hlint
+RUN     cabal v1-update \
+     && cabal v1-install hspec-discover alex happy hlint
      #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
 RUN     ghc            --version
