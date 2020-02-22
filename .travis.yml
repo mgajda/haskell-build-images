@@ -51,8 +51,9 @@ install:
   - docker --version
 
 script:
-  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --build-arg CABAL_VER=${CABAL_VER} --tag migamake/haskell-build:${GHC_VER} || exit 1;
+  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --build-arg CABAL_VER=${CABAL_VER} --tag migamake/haskell-build:$(echo ${GHC_VER}|cut -f-2 -d.)
+      || exit 1;
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
-      docker push migamake/haskell-build:$(echo ${GHC_VER}|cut -c-3);
+      docker push migamake/haskell-build:$(echo ${GHC_VER}|cut -f-2 -d.);
     fi;
