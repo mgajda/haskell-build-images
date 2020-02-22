@@ -8,7 +8,7 @@ RUN     apt-get update \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
                            g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase \
-                           libc6-pic libc6-dev-amd64 \
+                           libc6-pic \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
