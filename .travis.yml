@@ -45,7 +45,7 @@ matrix:
        - CABAL_VER=2.4
     - env:
        - GHC_VER=7.8.4
-       - CABAL_VER=1.21
+       - CABAL_VER=2.4
 
 install:
   - docker --version
