@@ -1,4 +1,4 @@
-FROM    ubuntu:eoan AS haskell-prep
+FROM    ubuntu:rolling AS haskell-prep
 RUN     apt-get update \
      && apt-get upgrade    -y \
      && DEBIAN_FRONTEND=noninteractive \
@@ -8,6 +8,7 @@ RUN     apt-get update \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
                            g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase \
+                           libc6-pic libc6-dev-amd64 \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
