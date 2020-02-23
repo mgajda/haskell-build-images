@@ -41,7 +41,7 @@ RUN     apt-get update \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
 RUN     cabal v1-update \
-     && cabal v1-install hspec-discover alex happy hlint --allow-newer
+     && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
      #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
 RUN     ghc            --version
