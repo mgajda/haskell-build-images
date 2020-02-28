@@ -7,7 +7,7 @@ RUN     apt-get update \
                            curl wget alex happy jq \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
-                           g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase \
+                           g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase locales \
                            libc6-pic \
                         --no-install-recommends \
      && apt-get clean \
