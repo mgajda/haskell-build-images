@@ -17,6 +17,7 @@ RUN     add-apt-repository -y ppa:hvr/ghc \
      && rm -rf /var/lib/apt/lists
 RUN     mkdir -p $HOME/.local/bin
 ENV     SILENCE_ROOT_WARNING=1
+ENV     LANG=en_US.UTF-8
 #RUN     mkdir -p       /build/.bundle
 #COPY    Dangerfile     /build/Dangerfile
 #COPY    .bundle/config /build/.bundle/config
