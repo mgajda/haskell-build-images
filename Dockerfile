@@ -17,6 +17,7 @@ RUN     add-apt-repository -y ppa:hvr/ghc \
      && rm -rf /var/lib/apt/lists
 RUN     mkdir -p $HOME/.local/bin
 ENV     SILENCE_ROOT_WARNING=1
+ENV     DEBIAN_FRONTEND=noninteractive
 #RUN     mkdir -p       /build/.bundle
 #COPY    Dangerfile     /build/Dangerfile
 #COPY    .bundle/config /build/.bundle/config
@@ -44,7 +45,7 @@ RUN     apt-get update \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
 RUN     cabal v1-update \
-     && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
+     && cabal v1-install hspec-discover alex happy hlint hpack homplexity --allow-newer
      #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
 RUN     ghc            --version
