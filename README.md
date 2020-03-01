@@ -10,3 +10,4 @@ It contains basic tools:
 * cabal 1.24, since cabal>=2.0 seems to buggy now
 * other build tools like stack or pier.
 
+[![Build Status](https://travis-ci.org/mgajda/haskell-build-images.svg?branch=master)](https://travis-ci.org/mgajda/haskell-build-images)
