@@ -7,8 +7,8 @@ RUN     apt-get update \
                            curl wget alex happy jq \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
-                           g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg netbase locales \
-                           libc6-pic \
+                           g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg \
+                           libc6-pic apt-utils locales netbase \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
@@ -17,8 +17,6 @@ RUN     add-apt-repository -y ppa:hvr/ghc \
      && rm -rf /var/lib/apt/lists
 RUN     mkdir -p $HOME/.local/bin
 ENV     SILENCE_ROOT_WARNING=1
-ENV     LC_ALL=en_SG.UTF-8
-ENV     LANG=en_SG.UTF-8
 #RUN     mkdir -p       /build/.bundle
 #COPY    Dangerfile     /build/Dangerfile
 #COPY    .bundle/config /build/.bundle/config
@@ -31,6 +29,8 @@ WORKDIR                /build
 #RUN     bundle install --deployment
 #RUN     curl -sSL https://get.haskellstack.org/ | sh
 RUN     locale-gen en_SG.UTF-8 en_US.UTF-8
+ENV     LC_ALL=en_SG.UTF-8
+ENV     LANG=en_SG.UTF-8
 RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64-static.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 FROM haskell-prep AS haskell-build
