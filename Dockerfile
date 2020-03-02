@@ -34,9 +34,20 @@ ENV     LC_ALL=en_SG.UTF-8
 ENV     LANG=en_SG.UTF-8
 RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64-static.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
+FROM haskell-prep AS haskell-tools
+COPY stack.yaml /root/.stack/global-project/stack.yaml
+RUN  stack install hspec-discover alex happy hlint hpack
+RUN  stack install homplexity
+
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
 ARG     CABAL_VER=2.4
+COPY    --from=haskell-tools /root/.local/bin/hspec-discover /root/.local/bin/
+COPY    --from=haskell-tools /root/.local/bin/alex           /root/.local/bin/
+COPY    --from=haskell-tools /root/.local/bin/happy          /root/.local/bin/
+COPY    --from=haskell-tools /root/.local/bin/hlint          /root/.local/bin/
+COPY    --from=haskell-tools /root/.local/bin/hpack          /root/.local/bin/
+COPY    --from=haskell-tools /root/.local/bin/homplexity-cli /root/.local/bin/
 # In case you wondered:
 ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/opt/cabal/$CABAL_VER/bin:$PATH
 #ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:$PATH
@@ -47,7 +58,6 @@ RUN     apt-get update \
 RUN     cabal v1-update \
      && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
      #&& rm -rf /root/.cabal/packages \
-RUN     stack install homplexity && rm -rf ~/.stack
 RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
