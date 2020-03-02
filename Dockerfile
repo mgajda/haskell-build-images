@@ -45,8 +45,9 @@ RUN     apt-get update \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
 RUN     cabal v1-update \
-     && cabal v1-install hspec-discover alex happy hlint hpack homplexity --allow-newer
+     && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
      #&& rm -rf /root/.cabal/packages \
+RUN     stack install homplexity && rm -rf ~/.stack
 RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
