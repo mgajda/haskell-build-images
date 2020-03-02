@@ -8,7 +8,7 @@ RUN     apt-get update \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
                            g++ gcc libc6-dev libffi-dev libgmp-dev make xz-utils zlib1g-dev git gnupg \
-                           libc6-pic apt-utils locales netbase \
+                           libc6-pic apt-utils locales netbase happy alex hlint hpack \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
@@ -36,18 +36,12 @@ RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.
 
 FROM haskell-prep AS haskell-tools
 COPY stack.yaml /root/.stack/global-project/stack.yaml
-RUN  stack install hspec-discover alex happy hlint hpack
 RUN  stack install homplexity
 
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
 ARG     CABAL_VER=2.4
-COPY    --from=haskell-tools /root/.local/bin/hspec-discover /root/.local/bin/
-COPY    --from=haskell-tools /root/.local/bin/alex           /root/.local/bin/
-COPY    --from=haskell-tools /root/.local/bin/happy          /root/.local/bin/
-COPY    --from=haskell-tools /root/.local/bin/hlint          /root/.local/bin/
-COPY    --from=haskell-tools /root/.local/bin/hpack          /root/.local/bin/
-COPY    --from=haskell-tools /root/.local/bin/homplexity-cli /root/.local/bin/
+COPY    --from=haskell-tools /root/.cabal/bin/homplexity-cli /root/.local/bin/homplexity-cli
 # In case you wondered:
 ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/opt/cabal/$CABAL_VER/bin:$PATH
 #ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:$PATH
