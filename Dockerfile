@@ -3,7 +3,6 @@ RUN     apt-get update \
      && apt-get upgrade    -y \
      && DEBIAN_FRONTEND=noninteractive \
         apt-get install -y software-properties-common \
-                           ruby ruby-bundler \
                            curl wget alex happy jq \
                            pkg-config netbase git \
                            zlib1g-dev awscli \
@@ -12,6 +11,7 @@ RUN     apt-get update \
                         --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
+#                           ruby ruby-bundler \
 RUN     add-apt-repository -y ppa:hvr/ghc \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
@@ -37,11 +37,12 @@ RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.
 FROM haskell-prep AS haskell-tools
 COPY stack.yaml /root/.stack/global-project/stack.yaml
 RUN  stack install homplexity
+RUN  /root/.local/bin/homplexity-cli --version
 
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
 ARG     CABAL_VER=2.4
-COPY    --from=haskell-tools /root/.cabal/bin/homplexity-cli /root/.local/bin/homplexity-cli
+COPY    --from=haskell-tools /root/.local/bin/homplexity-cli /root/.local/bin/homplexity-cli
 # In case you wondered:
 ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/opt/cabal/$CABAL_VER/bin:$PATH
 #ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:$PATH
@@ -55,7 +56,7 @@ RUN     cabal v1-update \
 RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
-RUN     ruby           --version || true
+#RUN     ruby           --version || true
 RUN     hlint          --version || true
 RUN     homplexity-cli --version || true
 ENV     HC=ghc-${GHC_VER}
