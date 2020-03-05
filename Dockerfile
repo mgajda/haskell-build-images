@@ -37,7 +37,7 @@ RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.
 FROM haskell-prep AS haskell-tools
 COPY stack.yaml /root/.stack/global-project/stack.yaml
 RUN  stack install homplexity
-RUN  /root/.local/bin/homplexity-cli --version
+RUN  /root/.local/bin/homplexity-cli --version=True .
 
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
@@ -57,8 +57,8 @@ RUN     stack          --version
 RUN     ghc            --version
 RUN     cabal          --version
 #RUN     ruby           --version || true
-RUN     hlint          --version || true
-RUN     homplexity-cli --version || true
+RUN     hlint          --version
+RUN     homplexity-cli --version=True .
 ENV     HC=ghc-${GHC_VER}
 ENV     HCPKG=ghc-pkg-${GHC_VER}
 
