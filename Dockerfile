@@ -42,6 +42,7 @@ RUN  /root/.local/bin/homplexity-cli --version=True .
 FROM haskell-prep AS haskell-build
 ARG     GHC_VER=8.6.5
 ARG     CABAL_VER=2.4
+ARG     GHC_LIB=
 COPY    --from=haskell-tools /root/.local/bin/homplexity-cli /root/.local/bin/homplexity-cli
 # In case you wondered:
 ENV     PATH=/root/.local/bin:/root/.cabal/bin:/opt/ghc/$GHC_VER/bin:/opt/cabal/$CABAL_VER/bin:$PATH
@@ -50,6 +51,7 @@ RUN     apt-get update \
      && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof cabal-install-$CABAL_VER --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
+RUN if [ "${GHC_LIB}" != "" ]; then cabal v1-install ghc-lib-${GHC_LIB}; fi
 RUN     cabal v1-update \
      && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
      #&& rm -rf /root/.cabal/packages \

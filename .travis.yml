@@ -14,9 +14,11 @@ matrix:
   - env:
      - GHC_VER=8.10.1
      - CABAL_VER=3.2
+     - GHC_LIB=8.10.1.20200518
   - env:
      - GHC_VER=8.8.3
      - CABAL_VER=3.0
+     - GHC_LIB=8.8.3.20200412.1
   - env:
      - GHC_VER=8.6.5
      - CABAL_VER=2.4
@@ -37,12 +39,15 @@ matrix:
     - env:
        - GHC_VER=8.10.1
        - CABAL_VER=3.2
+    - env:
+       - GHC_VER=8.4.4
+       - CABAL_VER=2.4
 
 install:
   - docker --version
 
 script:
-  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --build-arg CABAL_VER=${CABAL_VER} --tag migamake/haskell-build:$(echo ${GHC_VER}|cut -f-2 -d.)
+  - docker build . -f Dockerfile --build-arg GHC_VER=${GHC_VER} --build-arg CABAL_VER=${CABAL_VER} $(if [ "${GHC_LIB}" -eq "" ]; then true; else echo --build-arg GHC_LIB=${GHC_LIB} )--tag migamake/haskell-build:$(echo ${GHC_VER}|cut -f-2 -d.)
       || exit 1;
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
