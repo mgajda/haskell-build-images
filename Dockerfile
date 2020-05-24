@@ -51,8 +51,8 @@ RUN     apt-get update \
      && apt-get install -y ghc-$GHC_VER ghc-$GHC_VER-dyn ghc-$GHC_VER-prof cabal-install-$CABAL_VER --no-install-recommends \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists
-RUN if [ "${GHC_LIB}" != "" ]; then cabal v1-install ghc-lib-${GHC_LIB}; fi
 RUN     cabal v1-update \
+     && if [ "${GHC_LIB}" != "" ]; then cabal v1-install ghc-lib-${GHC_LIB}; fi \
      && cabal v1-install hspec-discover alex happy hlint hpack --allow-newer
      #&& rm -rf /root/.cabal/packages \
 RUN     stack          --version
