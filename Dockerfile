@@ -32,7 +32,7 @@ WORKDIR                /build
 RUN     locale-gen en_SG.UTF-8 en_US.UTF-8
 ENV     LC_ALL=en_SG.UTF-8
 ENV     LANG=en_SG.UTF-8
-RUN     curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64-static.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
+RUN     curl -L https://get.haskellstack.org/stable/linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 FROM haskell-prep AS haskell-tools
 COPY stack.yaml /root/.stack/global-project/stack.yaml
